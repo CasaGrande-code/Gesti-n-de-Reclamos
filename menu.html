@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Reclamos - Casa Grande S.A.A.</title>
+  <style>
+    :root{
+      --primary:#0b6073; /* tono teal cercano al de la imagen */
+      --primary-dark:#084a58;
+      --accent:#b8e986;   /* verde claro para encabezados */
+      --bg:#f5f7f9;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --danger:#b91c1c;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;color:var(--text);background:var(--bg)}
+    header{background:var(--primary);color:#fff;padding:24px}
+    header h1{margin:0;font-size:1.4rem}
+    header p{margin:4px 0 0;font-size:.9rem;opacity:.9}
+
+    main{max-width:1000px;margin:24px auto;padding:0 16px 48px}
+    .card{background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden}
+    .card header{background:var(--primary);padding:16px 20px}
+    .card header h2{margin:0;color:#fff;font-size:1.1rem}
+
+    form{padding:20px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .col-12{grid-column:span 12}
+    .col-6{grid-column:span 6}
+    .col-4{grid-column:span 4}
+    .col-3{grid-column:span 3}
+    .col-8{grid-column:span 8}
+    .col-2{grid-column:span 2}
+    @media (max-width:900px){
+      .col-6,.col-4,.col-3,.col-8,.col-2{grid-column:span 12}
+    }
+
+    fieldset{border:1px solid #e5e7eb;border-radius:10px}
+    legend{background:var(--accent);color:#1b4332;padding:6px 10px;border-radius:6px;font-weight:600}
+
+    label{display:block;font-weight:600;margin:6px 0}
+    input[type="text"], input[type="number"], input[type="date"], select, textarea{
+      width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:var(--text);outline:none
+    }
+    input:focus, select:focus, textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,96,115,.15)}
+    textarea{min-height:96px;resize:vertical}
+    .hint{font-size:.82rem;color:var(--muted)}
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    button{padding:10px 14px;border:none;border-radius:8px;cursor:pointer;font-weight:600}
+    .primary{background:var(--primary);color:#fff}
+    .secondary{background:#e5e7eb;color:#111827}
+    .danger{background:var(--danger);color:#fff}
+
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:.92rem}
+    th{background:#f0f9fb}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:.78rem}
+
+    .required::after{content:" *";color:var(--danger)}
+
+    @media print{
+      header, .actions-global {display:none}
+      .card{box-shadow:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Registro de Reclamos</h1>
+    <p>Formulario para captura estandarizada de reclamos comerciales.</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <header><h2>Formulario</h2></header>
+      <form id="reclamoForm" novalidate>
+        <div class="grid">
+          <div class="col-4">
+            <label for="codigo" class="required">Código de Reclamo</label>
+            <input id="codigo" name="codigo" type="text" placeholder="Ej. RC-2026-0001" required />
+          </div>
+          <div class="col-4">
+            <label for="empresa">Empresa</label>
+            <input id="empresa" name="empresa" type="text" placeholder="Nombre de la empresa" />
+          </div>
+          <div class="col-4">
+            <label for="cliente" class="required">Cliente</label>
+            <input id="cliente" name="cliente" type="text" placeholder="Razón social o nombre" required />
+          </div>
+
+          <div class="col-6">
+            <label for="lugar" >Lugar de Despacho</label>
+            <input id="lugar" name="lugar" type="text" placeholder="Dirección o punto de entrega" />
+          </div>
+          <div class="col-3">
+            <label for="tipoCliente" class="required">Tipo de cliente</label>
+            <select id="tipoCliente" name="tipoCliente" required>
+              <option value="" selected>Seleccione una opción…</option>
+              <option>Doméstico</option>
+              <option>Industrial</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="recepcionadoPor">Recepcionado por</label>
+            <input id="recepcionadoPor" name="recepcionadoPor" type="text" placeholder="Nombre del receptor" />
+          </div>
+
+          <div class="col-3">
+            <label for="fechaRecepcion" class="required">Fecha de Recepción Comercial</label>
+            <input id="fechaRecepcion" name="fechaRecepcion" type="date" required />
+          </div>
+          <div class="col-3">
+            <label for="metodo" class="required">Recepcionado a través</label>
+            <select id="metodo" name="metodo" required>
+              <option value="" selected>Seleccione un método…</option>
+              <option>E-mail</option>
+              <option>Llamada telefónica</option>
+              <option>WhatsApp</option>
+              <option>Visita in situ</option>
+              <option>Otros</option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <label for="producto" class="required">Producto</label>
+            <select id="producto" name="producto" required>
+              <option value="" selected>Seleccione un producto…</option>
+              <option>Az. Rubia</option>
+              <option>Az. Blanca</option>
+              <option>Az. Refinada</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="marca" class="required">Marca</label>
+            <select id="marca" name="marca" required>
+              <option value="" selected>Seleccione una marca…</option>
+              <option>San Jacinto</option>
+              <option>Cartavio</option>
+              <option>Casa Grande</option>
+              <option>DulceOlmos</option>
+              <option>DulceAurora</option>
+              <option>DulceNorte</option>
+              <option>La Troncal</option>
+              <option>Marca cliente</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="presentacion" class="required">Presentación</label>
+            <select id="presentacion" name="presentacion" required>
+              <option value="" selected>Seleccione una presentación…</option>
+              <option>Envase familiar</option>
+              <option>Papel 50 kg</option>
+              <option>PP 25 kg</option>
+              <option>PP + Liner 25 kg</option>
+              <option>PP 50 kg</option>
+              <option>PP + Liner 50 kg</option>
+              <option>Granel</option>
+              <option>Big Bag</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="lote" class="required">Lote</label>
+            <input id="lote" name="lote" type="text" placeholder="Código de lote" required />
+          </div>
+
+          <div class="col-3">
+            <label for="cantidad" class="required">Cantidad Bls/ Reclamadas</label>
+            <input id="cantidad" name="cantidad" type="number" placeholder="0" min="0" step="1" required />
+            <div class="hint">Ingrese el número de bolsas reclamadas.</div>
+          </div>
+          <div class="col-3">
+            <label for="fechaVencimiento">Fecha de vencimiento</label>
+            <input id="fechaVencimiento" name="fechaVencimiento" type="date" />
+          </div>
+
+          <div class="col-6">
+            <label for="requerimiento" class="required">Requerimiento de cliente</label>
+            <select id="requerimiento" name="requerimiento" required>
+              <option value="" selected>Seleccione el tipo de reclamo…</option>
+              <option>Azúcar compactada</option>
+              <option>Azúcar húmeda</option>
+              <option>Azúcar vencida</option>
+              <option>Bolsas rotas o deterioradas</option>
+              <option>Color no conforme</option>
+              <option>Presentación equivocada</option>
+              <option>Falta de peso</option>
+              <option>Material extraño</option>
+              <option>Puntos negros</option>
+              <option>NC microbiológica</option>
+              <option>Tamaño de grano no uniforme</option>
+              <option>Mal precintado de cisternas</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label for="descripcion" class="required">Descripción de Reclamo</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Describa el hallazgo, contexto, evidencias y cualquier información adicional relevante" required></textarea>
+          </div>
+          <div class="col-12">
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" name="observaciones" placeholder="Notas internas, acciones tomadas, etc."></textarea>
+          </div>
+
+          <div class="col-12 actions">
+            <button type="submit" class="primary">Guardar en la lista</button>
+            <button type="button" class="secondary" id="limpiarBtn">Limpiar formulario</button>
+            <button type="button" class="secondary" id="exportCsvBtn">Exportar CSV</button>
+            <button type="button" class="secondary" id="exportJsonBtn">Exportar JSON</button>
+            <button type="button" class="secondary" id="imprimirBtn">Imprimir / PDF</button>
+            <button type="button" class="danger" id="vaciarListaBtn">Vaciar lista</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div style="height:16px"></div>
+
+    <div class="card">
+      <header><h2>Registros guardados (<span id="totalRegistros">0</span>)</h2></header>
+      <div class="table-wrap">
+        <table id="tablaRegistros" aria-label="Registros de reclamos">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Cliente</th>
+              <th>Producto</th>
+              <th>Marca</th>
+              <th>Presentación</th>
+              <th>Lote</th>
+              <th>Cant. Bls</th>
+              <th>Tipo</th>
+              <th>Método</th>
+              <th>F. Recepción</th>
+              <th>F. Venc.</th>
+              <th>Requerimiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="actions actions-global" style="padding:16px">
+        <span class="hint">Los datos se almacenan localmente en su navegador (LocalStorage).</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('reclamoForm');
+    const tablaBody = document.querySelector('#tablaRegistros tbody');
+    const totalRegistros = document.getElementById('totalRegistros');
+
+    function getData(){
+      try{ return JSON.parse(localStorage.getItem('reclamos')||'[]'); }catch(e){ return []; }
+    }
+    function setData(arr){ localStorage.setItem('reclamos', JSON.stringify(arr)); render(); }
+
+    function formToObject(){
+      const fd = new FormData(form);
+      const obj = Object.fromEntries(fd.entries());
+      return obj;
+    }
+
+    function clearForm(){ form.reset(); }
+
+    function render(){
+      const data = getData();
+      tablaBody.innerHTML = '';
+      data.forEach((r, idx)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge">${escapeHtml(r.codigo||'')}</span></td>
+          <td>${escapeHtml(r.cliente||'')}</td>
+          <td>${escapeHtml(r.producto||'')}</td>
+          <td>${escapeHtml(r.marca||'')}</td>
+          <td>${escapeHtml(r.presentacion||'')}</td>
+          <td>${escapeHtml(r.lote||'')}</td>
+          <td>${escapeHtml(r.cantidad||'')}</td>
+          <td>${escapeHtml(r.tipoCliente||'')}</td>
+          <td>${escapeHtml(r.metodo||'')}</td>
+          <td>${formatDate(r.fechaRecepcion)||''}</td>
+          <td>${formatDate(r.fechaVencimiento)||''}</td>
+          <td>${escapeHtml(r.requerimiento||'')}</td>
+          <td>
+            <button type="button" class="secondary" onclick="editar(${idx})">Editar</button>
+            <button type="button" class="danger" onclick="eliminar(${idx})">Eliminar</button>
+          </td>`;
+        tablaBody.appendChild(tr);
+      });
+      totalRegistros.textContent = data.length;
+    }
+
+    function formatDate(val){
+      if(!val) return '';
+      const d = new Date(val);
+      if(Number.isNaN(d.getTime())) return val;
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const yyyy = d.getFullYear();
+      return `${dd}/${mm}/${yyyy}`;
+    }
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"]/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[s]));
+    }
+
+    function validar(){
+      const requiredIds = ['codigo','cliente','tipoCliente','fechaRecepcion','metodo','producto','marca','presentacion','lote','cantidad','requerimiento','descripcion'];
+      let ok = true;
+      requiredIds.forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el.value){
+          el.style.borderColor = 'var(--danger)';
+          ok = false;
+        } else {
+          el.style.borderColor = '#d1d5db';
+        }
+      });
+      if(!ok){ alert('Por favor complete los campos obligatorios (marcados con *).'); }
+      return ok;
+    }
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(!validar()) return;
+      const registro = formToObject();
+      const data = getData();
+      data.push(registro);
+      setData(data);
+      clearForm();
+    });
+
+    document.getElementById('limpiarBtn').addEventListener('click', ()=>clearForm());
+
+    function editar(idx){
+      const data = getData();
+      const r = data[idx];
+      if(!r) return;
+      Object.keys(r).forEach(k=>{
+        const el = document.getElementById(k);
+        if(el) el.value = r[k];
+      });
+      // Eliminar y permitir re-guardar como actualización
+      data.splice(idx,1);
+      setData(data);
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function eliminar(idx){
+      const data = getData();
+      if(idx>=0 && idx<data.length){
+        if(confirm('¿Eliminar este registro?')){
+          data.splice(idx,1);
+          setData(data);
+        }
+      }
+    }
+
+    function descargar(archivo, contenido, mime){
+      const blob = new Blob([contenido], {type:mime});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = archivo; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportCSV(){
+      const data = getData();
+      if(!data.length){ alert('No hay datos para exportar.'); return; }
+      const cols = ['codigo','empresa','cliente','lugar','tipoCliente','recepcionadoPor','fechaRecepcion','metodo','producto','marca','presentacion','lote','cantidad','fechaVencimiento','requerimiento','descripcion','observaciones'];
+      const header = cols.join(',');
+      const rows = data.map(r=> cols.map(c=>`"${(r[c]||'').replace(/"/g,'""')}"`).join(','));
+      const csv = [header, ...rows].join('\n');
+      descargar('reclamos.csv', csv, 'text/csv;charset=utf-8');
+    }
+
+    function exportJSON(){
+      const data = getData();
+      descargar('reclamos.json', JSON.stringify(data, null, 2), 'application/json');
+    }
+
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
+    document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
+    document.getElementById('imprimirBtn').addEventListener('click', ()=>window.print());
+    document.getElementById('vaciarListaBtn').addEventListener('click', ()=>{
+      if(confirm('Esto eliminará todos los registros guardados en este navegador. ¿Desea continuar?')){
+        localStorage.removeItem('reclamos');
+        render();
+      }
+    });
+
+    // Inicializar
+    render();
+  </script>
+</body>
+</html>
